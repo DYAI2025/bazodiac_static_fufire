@@ -1,40 +1,55 @@
 # BAZODIAC / FuFirE Static Site
 
-Vollständige statische Website ohne externe Dependencies.
+Vollständige statische Website ohne externe Runtime-Dependencies. Das Projekt ist für ein sauberes Railway-Deployment vorbereitet und nutzt einen kleinen Node.js-Server, der die statischen Dateien aus dem Repo-Root ausliefert.
 
 ## Dateien
 
-- `index.html`
-- `styles.css`
-- `app.js`
-- `README.md`
-- `package.json`
+- `index.html` – HTML-Einstiegspunkt
+- `styles.css` – vollständiges Styling
+- `app.js` – Interaktionen und Animationen
+- `server.js` – statischer Produktionsserver für Railway und lokale Nutzung
+- `railway.json` – Railway Build-/Deploy-Konfiguration inklusive Healthcheck
+- `package.json` – npm-Skripte und Node-Version
 
 ## Lokal starten
 
-Direkt öffnen:
-
-```txt
-index.html
-```
-
-Oder aus dem Ordner:
-
 ```bash
-python3 -m http.server 5173
+npm run dev
 ```
 
-Dann:
+Dann öffnen:
 
 ```txt
 http://localhost:5173
 ```
 
-Oder:
+Der Server bindet standardmäßig an `0.0.0.0:5173`. Für Produktionsumgebungen wird automatisch die von Railway gesetzte `PORT`-Variable verwendet.
+
+## Railway Deployment
+
+1. Repository mit Railway verbinden.
+2. Railway erkennt das Projekt über `railway.json` und verwendet Nixpacks.
+3. Der Deploy-Startbefehl ist:
+
+   ```bash
+   npm start
+   ```
+
+4. Railway prüft den Healthcheck unter:
+
+   ```txt
+   /healthz
+   ```
+
+Es sind keine Build-Artefakte, kein CDN und keine npm-Abhängigkeiten erforderlich.
+
+## Checks
 
 ```bash
-npm run dev
+npm run check
 ```
+
+Der Check validiert die Syntax des Node-Servers.
 
 ## Enthaltene Features
 
@@ -49,4 +64,3 @@ npm run dev
 - Vergleichsmodul Standard Astrology Apps vs. BAZODIAC
 
 Keine CDN-Icons. Keine Build-Kette. Kein `node_modules`-Morast. Kleine Gnade.
-# bazodiac_static_fufire
